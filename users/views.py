@@ -5,8 +5,6 @@ from django.shortcuts import redirect, render
 from users.forms import RegisterForm, LoginForm
 from users.models import User
 
-def index(request):
-    return render(request, "index.html")
 
 def register(request):
     form = RegisterForm()

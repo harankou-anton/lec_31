@@ -126,7 +126,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_FINDERS = [
+   "django.contrib.staticfiles.finders.FileSystemFinder",
+   "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+STATICFILES_DIRS = [BASE_DIR/"static"]
+
+# STATIC_ROOT = BASE_DIR / "static"
+STATIC_URL = "static/"
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -139,3 +149,27 @@ AUTHENTICATION_BACKENDS = (
     'users.backends.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+LOGGING = {
+   'version': 1,
+   'disable_existing_loggers': False,
+   'handlers': {
+       'console': {
+           'class': 'logging.StreamHandler',
+           'formatter': 'simple',
+       },
+   },
+   'formatters': {
+       'simple': {'format': '%(levelname)s %(asctime)s %(message)s'},
+   },
+   'loggers': {
+       '': {
+           'handlers': ['console'],
+           'level': 'INFO',
+       },
+       'django.db.backends': {
+           'handlers': ['console'],
+           'level': 'ERROR',
+       }
+   }
+}

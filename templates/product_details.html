@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h1>Product details</h1>
+        <div class="row">
+
+            <div class="col-4">
+                {% if product_details.image %}
+                    <img src="{{ product_details.image.url }}" width="400" height="400"/>
+                {% else %}
+                    <img src="{% static "no_image.webp" %}" width="400" height="400"/>
+                {% endif %}
+            </div>
+            <div class="col-8">
+            <div class="text">
+                <p>Title - {{ product_details }}</p>
+                <p>Price - {{ product_details.price }}</p>
+                <p>Description - {{ product_details.description }}</p>
+
+            </div>
+            </div>
+
+</div>
+
+    </div>
+
+{% endblock %}

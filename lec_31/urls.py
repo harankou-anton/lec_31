@@ -16,11 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from users.views import register, index, login_view
+
+from django.conf import settings
+from shop.views import index, product_details
+from users.views import register, login_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('register/', register, name='register'),
     path('login_view/', login_view, name='login_view'),
+    path('product/<int:product_id>/', product_details, name='product_details'),
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    # Serve static and media files from development server
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
